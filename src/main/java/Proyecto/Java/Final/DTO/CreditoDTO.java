@@ -1,53 +1,37 @@
-package Proyecto.Java.Final.DAO;
+package Proyecto.Java.Final.DTO;
 
 import java.util.Calendar;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-
-
-
-@Entity
-@Table(name = "credito", schema = "schemabody")
-public class CreditoDAO {
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id_Credito")
+public class CreditoDTO {
+	// Atributos
 	private Long id_Credito;
-
-	@Column(name = "tipoPrestamo")
 	private String tipoPrestamo;
-
-	@Column(name = "CantidadPrestamo")
 	private Double CantidadPrestamo;
-
-	@Column(name = "tasaInteres")
 	private Double tasaInteres;
-
-	@Column(name = "EstadoPrestamo")
 	private String EstadoPrestamo;
-
-	@Column(name = "CuotaMensual")
 	private Double CuotaMensual;
-
-	@Column(name = "fch_inicio")
 	private Calendar fch_inicio;
-
-	@Column(name = "fch_final")
 	private Calendar fch_final;
 
-	@ManyToOne
-	@JoinColumn(name = "id_cuenta")
-	private CuentaDAO cuenta;
-	
-	public CreditoDAO() {}
+	// Constructores
+	public CreditoDTO() {}
 
+	
+	public CreditoDTO(Long id_Credito, String tipoPrestamo, Double cantidadPrestamo, Double tasaInteres,
+			String estadoPrestamo, Double cuotaMensual, Calendar fch_inicio, Calendar fch_final) {
+		super();
+		this.id_Credito = id_Credito;
+		this.tipoPrestamo = tipoPrestamo;
+		CantidadPrestamo = cantidadPrestamo;
+		this.tasaInteres = tasaInteres;
+		EstadoPrestamo = estadoPrestamo;
+		CuotaMensual = cuotaMensual;
+		this.fch_inicio = fch_inicio;
+		this.fch_final = fch_final;
+	}
+
+
+	// Getter / Setter
 	public Long getId_Credito() {
 		return id_Credito;
 	}
@@ -110,13 +94,5 @@ public class CreditoDAO {
 
 	public void setFch_final(Calendar fch_final) {
 		this.fch_final = fch_final;
-	}
-
-	public CuentaDAO getCuenta() {
-		return cuenta;
-	}
-
-	public void setCuenta(CuentaDAO cuenta) {
-		this.cuenta = cuenta;
 	}
 }

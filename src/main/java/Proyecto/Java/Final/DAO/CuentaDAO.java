@@ -1,6 +1,6 @@
 package Proyecto.Java.Final.DAO;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -33,7 +33,7 @@ public class CuentaDAO {
     private Double saldo;
 
     @Column(name = "fch_apertura")
-    private Date fch_apertura;
+    private Calendar fch_apertura;
 
     @Column(name = "conNomina")
     private Boolean conNomina;
@@ -83,11 +83,11 @@ public class CuentaDAO {
 		this.saldo = saldo;
 	}
 
-	public Date getFch_apertura() {
+	public Calendar getFch_apertura() {
 		return fch_apertura;
 	}
 
-	public void setFch_apertura(Date fch_apertura) {
+	public void setFch_apertura(Calendar fch_apertura) {
 		this.fch_apertura = fch_apertura;
 	}
 
