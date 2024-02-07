@@ -47,7 +47,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 			builder = User.withUsername(username);
 			builder.disabled(false);
 			builder.password(user.getPassword());
-			builder.authorities(user.getPassword());
+			builder.authorities(user.getTipoUsuario());
 		} else {
 	    	System.out.println("Usuario no encontrado en la base de datos");
 			throw new UsernameNotFoundException("Usuario no encontrado");

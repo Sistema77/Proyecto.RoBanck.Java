@@ -29,6 +29,33 @@ public class SeguridadConfig {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Configura el administrador de autenticación de spring para manejar la autenticación.
+     * @param authConfig La configuración de autenticación.
+     * @return El administrador de autenticación configurado.
+     * @throws Exception Si surge algun error durante la autenticación.
+     */
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+	    return authConfig.getAuthenticationManager();
+	}
+    
+
+    /**
+     * Configura el proveedor de autenticación de spring que utiliza el servicio
+     * de detalles de usuario y el codificador de contraseñas.
+     * @return El proveedor de autenticación configurado.
+     */
+    @Bean
+    DaoAuthenticationProvider authenticationProvider() {
+		
+		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+	    authProvider.setUserDetailsService(userDetailsService);
+	    authProvider.setPasswordEncoder(passwordEncoder());
+	   
+	    return authProvider;
+	}
+	
 	  /**
      * Configura la cadena de filtros de seguridad de spring security para solicitudes HTTP, entre otras configuraciones.
      * @param http La configuración de seguridad HTTP.
@@ -56,16 +83,13 @@ public class SeguridadConfig {
             .logout(logout ->
                 logout
                     .logoutUrl("/auth/logout") // Establece la URL de cierre de sesión personalizada.
-                    .logoutSuccessUrl("/") // Establece la URL de redirección después de un cierre de sesión exitoso.
+                    .logoutSuccessUrl("/auth/login") // Establece la URL de redirección después de un cierre de sesión exitoso.
             );
         
         // Configura un proveedor de autenticación personalizado.
-                                   //http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider());
 
         // Construye y devuelve la cadena de filtros de seguridad configurada.
         return http.build();
     }
-	
-	
-
 }
