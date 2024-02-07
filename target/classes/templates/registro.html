@@ -24,7 +24,7 @@
 	</nav>
 	<div class="contenedor form-registro">
 		<p class="titulo">Registro</p>
-		 <form class="form" th:action="@{/api/registrar}" enctype="multipart/form-data" method="post">
+		 <form class="form" th:action="@{/auth/registrar}" enctype="multipart/form-data" method="post">
 			<input type="text" id="name" name="name" class="input" placeholder="Nombre"
 				required th:value="*{name}">
 			<input type="text" id="last_name" name="last_name" class="input" placeholder="Apellidos"

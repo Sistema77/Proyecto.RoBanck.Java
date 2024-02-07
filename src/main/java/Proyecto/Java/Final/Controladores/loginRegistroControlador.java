@@ -30,7 +30,7 @@ public class loginRegistroControlador {
 		return "login";
 	}
 	
-	@PostMapping("/auth/registrar")
+	@PostMapping("/registrar")
 	public String registrarPost(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
 
 		UsuarioDTO nuevoUsuario = usuarioServicio.registrar(usuarioDTO);

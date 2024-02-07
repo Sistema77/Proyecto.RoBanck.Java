@@ -21,9 +21,9 @@ public interface UsuarioRepositorio extends JpaRepository<UsuarioDAO, Long> {
 	 * @param email
 	 * @return Usuario o null
 	 */
-	Optional<UsuarioDAO> findByEmail(String email);
+	public UsuarioDAO findByEmail(String email);
 	
 	
-	Optional<UsuarioDAO> findByName(String name);
+	public UsuarioDAO findByName(String name);
 	
 }

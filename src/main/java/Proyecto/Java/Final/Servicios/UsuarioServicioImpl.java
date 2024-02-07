@@ -36,7 +36,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 			
 			usuarioDTO.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); //  encriptar la contraseña
 			UsuarioDAO usuarioDao = usuarioToDao.usuarioToDao(usuarioDTO);
-			usuarioDao.setTipoUsuario("ROLE_USER");
+			usuarioDao.setTipoUsuario("USER");
 			usuarioDao.setFch_alta(Calendar.getInstance());
 			usuarioRepositorio.save(usuarioDao);
 
