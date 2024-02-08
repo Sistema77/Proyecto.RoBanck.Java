@@ -19,6 +19,7 @@ public class UsuarioToDtoImpl implements IUsuarioToDto {
 	public UsuarioDTO usuarioToDto(UsuarioDAO u) {
 		
 		try {
+			
 			UsuarioDTO dto = new UsuarioDTO();
 			dto.setName(u.getName());
 			dto.setLastName(u.getLastName());
@@ -45,7 +46,11 @@ public class UsuarioToDtoImpl implements IUsuarioToDto {
 		try {
 				
 			List<UsuarioDTO> listaDto = new ArrayList<>();
+			
 			for (UsuarioDAO u : listaUsuario) {
+				
+				System.out.println(u.toString());
+				
 				listaDto.add(this.usuarioToDto(u));
 			}
 			return listaDto;

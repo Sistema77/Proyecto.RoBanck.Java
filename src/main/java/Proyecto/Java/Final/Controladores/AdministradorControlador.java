@@ -24,20 +24,20 @@ public class AdministradorControlador {
 	@GetMapping("/privada/administracion")
 	public String listadoUsuarios(Model model, HttpServletRequest request,Authentication authentication) {
 		
-		//if(request.isUserInRole("ADMIN")) {
+		if(request.isUserInRole("ROLE_ADMIN")) {
 			
-			//List<UsuarioDTO> usuarios = usuarioServicio.listadoUsuario();
+			List<UsuarioDTO> usuarios = usuarioServicio.listadoUsuario();
 			
-			//System.out.println(usuarios);
+			System.out.println(usuarios);
 			
-			//model.addAttribute("usuarios", usuarios);
+			model.addAttribute("usuarios", usuarios);
 			
 			return "administracion";	
-		//} 
+		} 
 		
-		//model.addAttribute("noAdmin", "No eres admin");
-		//model.addAttribute("nombreUsuario", authentication.getName());
+		model.addAttribute("noAdmin", "No eres admin");
+		model.addAttribute("name", authentication.getName());
 		
-		//return "home";
+		return "home";
 	}
 }

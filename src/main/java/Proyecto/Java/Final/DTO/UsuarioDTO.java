@@ -1,5 +1,6 @@
 package Proyecto.Java.Final.DTO;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 public class UsuarioDTO {
@@ -133,5 +134,15 @@ public class UsuarioDTO {
 	public void setFch_alta(Calendar fch_alta) {
 		this.fch_alta = fch_alta;
 	}
+
+	@Override
+	public String toString() {
+		return "UsuarioDTO [id_usuario=" + id_usuario + ", name=" + name + ", dni=" + dni + ", lastName=" + lastName
+				+ ", email=" + email + ", password=" + password + ", tlf=" + tlf 
+				+ ", tipoUsuario=" + tipoUsuario + ", token=" + token + ", expiracionToken=" + expiracionToken
+				+ ", fch_alta=" + fch_alta + "]";
+	}
+	
+	
 	
 }

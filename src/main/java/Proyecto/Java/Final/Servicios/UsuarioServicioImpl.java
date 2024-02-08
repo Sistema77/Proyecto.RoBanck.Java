@@ -3,10 +3,9 @@ package Proyecto.Java.Final.Servicios;
 import java.util.Calendar;
 import java.util.List;
 
-import org.apache.commons.lang3.RandomStringUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -55,6 +54,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     
     @Override
 	public List<UsuarioDTO> listadoUsuario() {
+    	
 		return usuarioToDto.listaUsuarioToDto(usuarioRepositorio.findAll());
 	}
     
