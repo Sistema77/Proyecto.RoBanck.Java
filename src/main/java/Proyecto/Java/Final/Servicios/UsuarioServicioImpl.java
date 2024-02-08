@@ -1,6 +1,5 @@
 package Proyecto.Java.Final.Servicios;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -23,6 +22,9 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
     @Autowired
     private IUsuarioToDao usuarioToDao;
+    
+    @Autowired
+	private IUsuarioToDto usuarioToDto;
 
     @Override
     public UsuarioDTO registrar(UsuarioDTO usuarioDTO) {
@@ -50,5 +52,10 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 		}
 		return null;
     }
+    
+    @Override
+	public List<UsuarioDTO> listadoUsuario() {
+		return usuarioToDto.listaUsuarioToDto(usuarioRepositorio.findAll());
+	}
     
 }
