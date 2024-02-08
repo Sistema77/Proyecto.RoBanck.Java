@@ -2,7 +2,7 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>Listado</title>
+<title>Administración</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css"
 		th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
@@ -21,7 +21,7 @@
 		<ul class="nav-links">
 			<li>
 				<form th:action="@{/auth/logout}" method="post" id="logoutForm">
-					<button type="submit" class="btn btn-dark mt-2" onclick="confirmarLogout()">Logout</button>
+					<button type="submit" class="btn btn-dark mt-2">Logout</button>
 				</form>
 			</li>
 		</ul>
@@ -48,8 +48,8 @@
 							<th class="table-dark">apellidos</th>
 							<th class="table-dark">email</th>
 							<th class="table-dark">DNI</th>
-							<th class="table-dark" sec:authorize="hasRole('ADMIN')">editar</th>
-							<th  class="table-dark"sec:authorize="hasRole('ADMIN')">eliminar</th>
+							<th class="table-dark" sec:authorize="hasRole('ROLE_ADMIN')">editar</th>
+							<th  class="table-dark"sec:authorize="hasRole('ROLE_ADMIN')">eliminar</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -64,13 +64,12 @@
 								th:href="@{/form/} + ${usuario.id_usuario}" th:text="'editar'"></a>
 							</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
-								<form class="form" th:action="@{/privada/eliminar/{id}}" method="post">
+								<form class="form" th:action="@{'/privada/eliminar/' + ${usuario.id_usuario}}" method="post">
 									<input type="hidden" name="id" th:value="${usuario.id_usuario}" />
 									<button type="submit" class="btn btn-danger"
 										th:text="eliminar"></button>
 								</form>
 							</td>
-
 						</tr>
 					</tbody>
 				</table>

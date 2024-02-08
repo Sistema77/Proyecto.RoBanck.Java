@@ -45,7 +45,7 @@ public class AdministradorControlador {
 	
 	
 	@PostMapping("/privada/eliminar/{id}")
-	public String eliminarUsuario(@PathVariable Long id, Model model, HttpServletRequest request) {
+	public String eliminarUsuario(@PathVariable long id, Model model, HttpServletRequest request) {
 		
 		/////////////////////////////////////
 		System.out.println("Buscando Usuario");
@@ -57,11 +57,11 @@ public class AdministradorControlador {
 			System.out.println("No es ADMIN");
 			
 			model.addAttribute("usuarios", usuarios);
-			return "listado";
+			return "administracion";
 		}
 		
 		usuarioServicio.eliminarUsuario(id);
-		return "administracion";
+		return "redirect:/privada/administracion";
 		
 	}
 	
