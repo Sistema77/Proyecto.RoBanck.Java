@@ -1,5 +1,6 @@
 package Proyecto.Java.Final.Repositorio;
 
+import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -25,5 +26,8 @@ public interface UsuarioRepositorio extends JpaRepository<UsuarioDAO, Long> {
 	
 	
 	public UsuarioDAO findByName(String name);
+	
+	 // Método para obtener todos los usuarios
+    public List<UsuarioDAO> findAll();
 	
 }

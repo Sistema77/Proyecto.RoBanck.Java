@@ -25,8 +25,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	private UsuarioRepositorio usuarioRepository;
 	
 	/**
-	 * Se debe sobrescribir este método de la interface {@link UserDetailsService}
-	 * para que spring se encargue de procesar las solicitudes de autenticación del usuario.
 	 * Buscando un usuario por su nombre de usuario y después devolviendo
 	 * un objeto de tipo UserDetails para que spring pueda completar la autenticación
 	 */
@@ -34,25 +32,29 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
 	    System.out.printf("\nIntento de inicio de sesión para el usuario: %s\n", username);
-
-		//El nombre de usuario en la aplicación es el email
-		UsuarioDAO user = usuarioRepository.findByEmail(username);
-		
-		//Construir la instancia de UserDetails con los datos del usuario
-		UserBuilder builder = null;
-		
-		if (user != null) {
-	    	System.out.printf("\nUsuario encontrado en la base de datos: %s\n", user.getEmail());
-
-			builder = User.withUsername(username);
-			builder.disabled(false);
-			builder.password(user.getPassword());
-			builder.authorities(user.getPassword());
-		} else {
-	    	System.out.println("Usuario no encontrado en la base de datos");
-			throw new UsernameNotFoundException("Usuario no encontrado");
-		}
-		return builder.build();
+	    
+	    try {
+			//El nombre de usuario en la aplicación es el email
+			UsuarioDAO user = usuarioRepository.findByEmail(username);
+			
+			//Construir la instancia de UserDetails con los datos del usuario
+			UserBuilder builder = null;
+			
+			if (user != null) {
+		    	System.out.printf("\nUsuario encontrado en la base de datos: %s\n", user.getEmail());
+	
+				builder = User.withUsername(username);
+				builder.disabled(false);
+				builder.password(user.getPassword());
+				builder.authorities(user.getTipoUsuario());
+			} else { 
+		    	System.out.println("Usuario no encontrado en la base de datos");
+				throw new UsernameNotFoundException("Usuario no encontrado");
+			}
+			return builder.build();
+	    }catch(UsernameNotFoundException e) {
+	    	return null;
+	    }
 	}
 
 }

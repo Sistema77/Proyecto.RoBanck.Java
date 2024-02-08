@@ -1,6 +1,8 @@
 package Proyecto.Java.Final.Servicios;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,10 +27,10 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Override
     public UsuarioDTO registrar(UsuarioDTO usuarioDTO) {
     	try {
-			// Comprueba si ya existe un usuario por el DNI
-			UsuarioDAO usuarioDNI = usuarioRepositorio.findByDni(usuarioDTO.getDni());
+			// Comprueba si ya existe un usuario por el Email
+			UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
 
-			if (usuarioDNI != null) {
+			if (usuario != null) {
 				return null;
 			}
 			
@@ -36,7 +38,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 			
 			usuarioDTO.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); //  encriptar la contraseña
 			UsuarioDAO usuarioDao = usuarioToDao.usuarioToDao(usuarioDTO);
-			usuarioDao.setTipoUsuario("USER");
+			usuarioDao.setTipoUsuario("ROLE_USER");
 			usuarioDao.setFch_alta(Calendar.getInstance());
 			usuarioRepositorio.save(usuarioDao);
 
@@ -48,4 +50,5 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 		}
 		return null;
     }
+    
 }
