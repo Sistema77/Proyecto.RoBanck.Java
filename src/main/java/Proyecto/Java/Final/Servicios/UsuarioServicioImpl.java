@@ -2,7 +2,7 @@ package Proyecto.Java.Final.Servicios;
 
 import java.util.Calendar;
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -65,12 +65,8 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     @Override
 	public UsuarioDAO eliminarUsuario(long id) {
 		UsuarioDAO usuario = usuarioRepositorio.findById(id);
-		
-		////////////////////////////////////
-		System.out.println("Usuario encontrado: " + usuario.toString());
+
 		if (usuario != null) {
-			//////////////////////////////////
-			System.out.println("Es Eliminado");
 			usuarioRepositorio.delete(usuario);
 		} 
 		return usuario;
@@ -78,6 +74,24 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     
     public UsuarioDAO buscarUsuarioId(long id) {
     	return usuarioRepositorio.findById(id);
+    }
+    
+    public void modificarUsuario(long id, UsuarioDTO usuarioModificado) {
+    	 // Verificar si el usuario con el ID proporcionado existe en la base de datos
+        UsuarioDAO usuario = usuarioRepositorio.findById(id);
+        if (usuario != null) {
+            
+            // Actualizar los campos del usuario existente con los nuevos valores
+        	usuario.setDni(usuarioModificado.getDni());
+        	usuario.setEmail(usuarioModificado.getEmail());
+        	usuario.setFoto(usuarioModificado.getFoto());
+        	usuario.setLastName(usuarioModificado.getLastName());
+        	usuario.setName(usuarioModificado.getName());
+        	usuario.setTlf(usuarioModificado.getTlf());
+         
+            // Guardar los cambios en la base de datos
+            usuarioRepositorio.save(usuario);
+        }
     }
     
 }

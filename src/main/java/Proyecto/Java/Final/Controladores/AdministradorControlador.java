@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import Proyecto.Java.Final.DAO.UsuarioDAO;
 import Proyecto.Java.Final.DTO.UsuarioDTO;
 import Proyecto.Java.Final.Servicios.IUsuarioServicio;
+import Proyecto.Java.Final.Servicios.IUsuarioToDto;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
@@ -22,6 +23,9 @@ public class AdministradorControlador {
 	
 	@Autowired
 	private IUsuarioServicio usuarioServicio;
+	
+	@Autowired
+	private IUsuarioToDto usuarioToDto;
 	
 	@GetMapping("/privada/administracion")
 	public String listadoUsuarios(Model model, HttpServletRequest request,Authentication authentication) {
@@ -47,14 +51,10 @@ public class AdministradorControlador {
 	@PostMapping("/privada/eliminar/{id}")
 	public String eliminarUsuario(@PathVariable long id, Model model, HttpServletRequest request) {
 		
-		/////////////////////////////////////
-		System.out.println("Buscando Usuario");
 		UsuarioDAO usuario = usuarioServicio.buscarUsuarioId(id);
 		List<UsuarioDAO> usuarios = usuarioServicio.listadoUsuarioDAO();
 		
 		if(request.isUserInRole("ROLE_ADMIN") && usuario.getTipoUsuario().equals("ROLE_ADMIN")) {
-			///////////////////////////////
-			System.out.println("No es ADMIN");
 			
 			model.addAttribute("usuarios", usuarios);
 			return "administracion";
@@ -65,5 +65,22 @@ public class AdministradorControlador {
 		
 	}
 	
-	
+	 // Método para mostrar el formulario de modificación de usuario
+	@PostMapping("/privada/modificar/{id}")
+    public String mostrarFormularioModificar(@PathVariable long id, Model model) {
+        UsuarioDAO usuarioDto = usuarioServicio.buscarUsuarioId(id);
+        UsuarioDTO usuarioDao = usuarioToDto.usuarioToDto(usuarioDto);
+        
+        model.addAttribute("usuario", usuarioDao);
+        
+        return "editar";
+    }
+    
+    // Método para procesar la solicitud de modificación de usuario
+    @PostMapping("/privada/modificar/usuario/{id}")
+    public String modificarUsuario(@PathVariable long id, @ModelAttribute UsuarioDTO usuarioModificado) {
+        // Actualizar los datos del usuario
+        usuarioServicio.modificarUsuario(id, usuarioModificado);
+        return "redirect:/privada/administracion";
+    }
 }

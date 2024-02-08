@@ -59,9 +59,12 @@
 							<td th:text="${usuario.lastName}"></td>
 							<td th:text="${usuario.email}"></td>
 							<td th:text="${usuario.dni}"></td>
-							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
-								class="btn btn-primary"
-								th:href="@{/form/} + ${usuario.id_usuario}" th:text="'editar'"></a>
+							<td sec:authorize="hasRole('ROLE_ADMIN')">
+								<form class="form" th:action="@{'/privada/modificar/' + ${usuario.id_usuario}}"  method="post">
+									<input type="hidden" name="id" th:value="${usuario.id_usuario}" />
+									<button type="submit" class="btn btn-primary"
+										th:text="modificar"></button>
+								</form>
 							</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
 								<form class="form" th:action="@{'/privada/eliminar/' + ${usuario.id_usuario}}" method="post">

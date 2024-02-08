@@ -16,4 +16,6 @@ public interface IUsuarioServicio {
 	public UsuarioDAO buscarUsuarioId(long id);
 	
 	public List<UsuarioDAO> listadoUsuarioDAO();
+	
+	public void modificarUsuario(long id, UsuarioDTO usuarioModificado);
 }
