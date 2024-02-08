@@ -54,8 +54,30 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
     
     @Override
 	public List<UsuarioDTO> listadoUsuario() {
-    	
 		return usuarioToDto.listaUsuarioToDto(usuarioRepositorio.findAll());
 	}
+    
+    @Override
+	public List<UsuarioDAO> listadoUsuarioDAO() {
+		return usuarioRepositorio.findAll();
+	}
+    
+    @Override
+	public UsuarioDAO eliminarUsuario(long id) {
+		UsuarioDAO usuario = usuarioRepositorio.findById(id);
+		
+		////////////////////////////////////
+		System.out.println("Usuario encontrado: " + usuario.toString());
+		if (usuario != null) {
+			//////////////////////////////////
+			System.out.println("Es Eliminado");
+			usuarioRepositorio.delete(usuario);
+		} 
+		return usuario;
+	}
+    
+    public UsuarioDAO buscarUsuarioId(long id) {
+    	return usuarioRepositorio.findById(id);
+    }
     
 }

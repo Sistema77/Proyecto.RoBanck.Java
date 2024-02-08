@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Registro</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="../static/css/menu.css" th:href="@{/css/menu.css}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<nav>
+		<div class="menu">
+			<div class="logo"><a>RoBanck</a></div>
+			<ul class="nav-links">
+				<li><a th:href="@{/auth/login}" sec:authorize='!isAuthenticated()'>Volver</a></li>
+				<li><a th:href="@{/privada/listado}" sec:authorize='hasAnyRole("ROLE_ADMIN")'>Volver</a></li>
+			</ul>
+		</div>
+	</nav>
+	<div class="contenedor form-registro">
+		<p class="titulo">Registro</p>
+		 <form class="form" th:action="@{/privada/editar}" enctype="multipart/form-data" method="post">
+			<input type="text" id="name" name="name" class="input" th:text="${usuario.name}"
+				required th:value="*{name}">
+			<input type="text" id="last_name" name="last_name" class="input" th:text="${usuario.lastName}"
+				required th:value="*{last_name}">
+			<input type="text" id="dni" name="dni" class="input"th:text="${usuario.dni}" required
+				th:value="*{dni}">
+			<input type="text" id="tlf" name="tlf" class="input" th:text="${usuario.tlf}"
+				required th:value="*{tlf}">
+			<input type="email" id="email" name="email" class="input" th:text="${usuario.email}"
+				required th:value="*{email}">
+			<button type="submit" id="btnRegistro" class="form-btn">Registrarse</button> 
+		</form>
+	</div>
+</body>
+
+</html>

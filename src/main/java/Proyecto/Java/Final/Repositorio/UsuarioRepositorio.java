@@ -22,8 +22,11 @@ public interface UsuarioRepositorio extends JpaRepository<UsuarioDAO, Long> {
 	 */
 	public UsuarioDAO findByEmail(String email);
 	
+	public UsuarioDAO findById(long id);
 	
 	public UsuarioDAO findByName(String name);
 	
 	public List<UsuarioDAO> findAll();
+	
+	
 }

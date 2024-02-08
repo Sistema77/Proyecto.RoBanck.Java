@@ -43,7 +43,7 @@
 				<table class="table table-striped table-bordered" th:if="${not #lists.isEmpty(usuarios)}">
 					<thead class="thead-inverse">
 						<tr>
-							<th class="table-dark" sec:authorize="hasRole('USER')">id</th>
+							<th class="table-dark">id</th>
 							<th class="table-dark">nombre</th>
 							<th class="table-dark">apellidos</th>
 							<th class="table-dark">email</th>
@@ -54,17 +54,21 @@
 					</thead>
 					<tbody>
 						<tr th:each="usuario : ${usuarios}">
-							<td sec:authorize="hasRole('USER')">
-								<a class="btn btn-dark" th:href="@{/privada/ver/} + ${usuario.id_usuario}" th:text="${usuario.id_usuario}">1</a></td>
+							<td th:text="${usuario.id_usuario}"></td>
 							<td th:text="${usuario.name}"></td>
 							<td th:text="${usuario.lastName}"></td>
 							<td th:text="${usuario.email}"></td>
 							<td th:text="${usuario.dni}"></td>
-							<td sec:authorize="hasRole('ROLE_ADMIN')">
-								<a class="btn btn-primary" th:href="@{/form/} + ${usuario.id_usuario}" th:text="'editar'"></a>
+							<td sec:authorize="hasRole('ROLE_ADMIN')"><a
+								class="btn btn-primary"
+								th:href="@{/form/} + ${usuario.id_usuario}" th:text="'editar'"></a>
 							</td>
 							<td sec:authorize="hasRole('ROLE_ADMIN')">
-    							<a class="btn btn-danger" th:attr="data-id=${usuario.id_usuario}" th:text="'eliminar'" onclick="confirmarEliminar(event)"></a>
+								<form class="form" th:action="@{/privada/eliminar/{id}}" method="post">
+									<input type="hidden" name="id" th:value="${usuario.id_usuario}" />
+									<button type="submit" class="btn btn-danger"
+										th:text="eliminar"></button>
+								</form>
 							</td>
 
 						</tr>
