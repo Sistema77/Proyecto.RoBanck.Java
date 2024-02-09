@@ -30,6 +30,7 @@
 		    <input type="text" id="dni" name="dni" class="input" required th:value="${usuario.dni}">
 		    <input type="text" id="tlf" name="tlf" class="input" required th:value="${usuario.tlf}">
 		    <input type="email" id="email" name="email" class="input" required th:value="${usuario.email}">
+		    <input type="file" id="foto" name="foto" required th:value="*{usuario.foto}" accept="image/*"  />
     		<button type="submit" id="btnRegistro" class="form-btn">Actualizar</button> 
 		</form>
 	</div>

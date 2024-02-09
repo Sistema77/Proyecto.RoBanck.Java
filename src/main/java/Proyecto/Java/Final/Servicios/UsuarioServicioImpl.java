@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import Proyecto.Java.Final.DAO.UsuarioDAO;
 import Proyecto.Java.Final.DTO.UsuarioDTO;
 import Proyecto.Java.Final.Repositorio.UsuarioRepositorio;
+import Proyecto.Java.Final.Util.ImagenBinario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +37,10 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             // Comprueba si ya existe un usuario por el Email
             UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
 
+            //////////////////////////////////////////
+            System.out.println("Foto del Objeto2 : " );
+        	System.out.println(usuarioDTO.getFoto());
+        	
             if (usuario != null) {
                 return null;
             }
@@ -46,6 +51,9 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             UsuarioDAO usuarioDao = usuarioToDao.usuarioToDao(usuarioDTO);
             usuarioDao.setTipoUsuario("ROLE_USER");
             usuarioDao.setFch_alta(Calendar.getInstance());
+            
+            System.out.println("DAO Foto: " + usuarioDao.getFoto());
+            
             usuarioRepositorio.save(usuarioDao);
 
             return usuarioDTO;
@@ -120,4 +128,5 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             logger.error("Error en modificarUsuario: " + e.getMessage(), e);
         }
     }
+    
 }

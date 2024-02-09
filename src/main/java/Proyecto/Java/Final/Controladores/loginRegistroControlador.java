@@ -7,9 +7,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import Proyecto.Java.Final.DTO.UsuarioDTO;
 import Proyecto.Java.Final.Servicios.IUsuarioServicio;
+import Proyecto.Java.Final.Util.ImagenBinario;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,8 +48,16 @@ public class loginRegistroControlador {
     }
     
     @PostMapping("/auth/registrar")
-    public String registrarPost(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
+    public String registrarPost(@RequestParam("profilePicture") MultipartFile file,@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
         try {
+        	
+        	
+        	usuarioDTO.setFoto(ImagenBinario.convertMultipartFileToByteArray(file));
+        	
+        	/////////////////////////////////////////
+        	System.out.println("Foto del Objeto: " );
+        	System.out.println(usuarioDTO.getFoto());
+        	
             UsuarioDTO nuevoUsuario = usuarioServicio.registrar(usuarioDTO);
             
             if (nuevoUsuario != null && nuevoUsuario.getEmail() != null) {

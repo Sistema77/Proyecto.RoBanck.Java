@@ -1,5 +1,5 @@
 body {
-    background-color: #f8f9fa; /* Color de fondo */
+    background-color: #f8f9fa; 
 }
 
 .contenedor {
@@ -9,7 +9,8 @@ body {
     box-sizing: border-box;
     padding: 20px 30px;
     margin: auto;
-    margin-top: 50px; /* Espacio superior */
+    margin-top: 50px; 
+   
     
 }
 
@@ -40,7 +41,7 @@ body {
 
 .form-registro {
     width: 350px;
-    height: 660px;
+    height: 680px;
 }
 
 .form-olvidado {
