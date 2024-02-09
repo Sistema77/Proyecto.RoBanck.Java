@@ -36,10 +36,6 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         try {
             // Comprueba si ya existe un usuario por el Email
             UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
-
-            //////////////////////////////////////////
-            System.out.println("Foto del Objeto2 : " );
-        	System.out.println(usuarioDTO.getFoto());
         	
             if (usuario != null) {
                 return null;
@@ -55,7 +51,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             System.out.println("DAO Foto: " + usuarioDao.getFoto());
             
             usuarioRepositorio.save(usuarioDao);
-
+            logger.info("Usuario " + usuarioDao.getEmail() + " REGISTRADO");
             return usuarioDTO;
         } catch (Exception e) {
             logger.error("Error en registrar: " + e.getMessage(), e);
@@ -90,6 +86,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
             if (usuario != null) {
                 usuarioRepositorio.delete(usuario);
+                logger.info("Usuario " + usuario.getEmail() + "Eliminado");
             } 
             return usuario;
         } catch (Exception e) {
@@ -123,6 +120,7 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
              
                 // Guardar los cambios en la base de datos
                 usuarioRepositorio.save(usuario);
+                logger.info("Usuario " + usuario.getEmail() +" Fue modificado");
             }
         } catch (Exception e) {
             logger.error("Error en modificarUsuario: " + e.getMessage(), e);

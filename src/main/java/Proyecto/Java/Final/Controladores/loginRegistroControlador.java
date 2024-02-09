@@ -50,13 +50,8 @@ public class loginRegistroControlador {
     @PostMapping("/auth/registrar")
     public String registrarPost(@RequestParam("profilePicture") MultipartFile file,@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
         try {
-        	
-        	
+        		
         	usuarioDTO.setFoto(ImagenBinario.convertMultipartFileToByteArray(file));
-        	
-        	/////////////////////////////////////////
-        	System.out.println("Foto del Objeto: " );
-        	System.out.println(usuarioDTO.getFoto());
         	
             UsuarioDTO nuevoUsuario = usuarioServicio.registrar(usuarioDTO);
             
