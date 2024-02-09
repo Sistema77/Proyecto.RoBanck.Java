@@ -79,7 +79,10 @@ public class loginRegistroControlador {
     public String loginCorrecto(Model model, Authentication authentication) {
         try {
             model.addAttribute("nombreUsuario", authentication.getName());
-            System.out.println(authentication.getAuthorities());
+            
+            byte[] fotoby = usuarioServicio.buscarUsuarioEmail(authentication.getName()).getFoto();
+            String foto = ImagenBinario.pasarBinarioAString(fotoby);
+            model.addAttribute("foto", foto);
             return "home";
         } catch (Exception e) {
             logger.error("Error en loginCorrecto: " + e.getMessage(), e);

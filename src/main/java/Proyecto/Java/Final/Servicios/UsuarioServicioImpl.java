@@ -104,6 +104,22 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         }
     }
     
+    public UsuarioDTO buscarUsuarioEmail(String email) {
+        try {
+        	
+        	UsuarioDAO usuario = usuarioRepositorio.findByEmail(email);
+        	
+        	UsuarioDTO usuarioDto = usuarioToDto.usuarioToDto(usuario);
+        	
+            return usuarioDto;
+            
+            
+        } catch (Exception e) {
+            logger.error("Error en buscarUsuarioEmail: " + e.getMessage(), e);
+            return null; 
+        }
+    }
+    
     public void modificarUsuario(long id, UsuarioDTO usuarioModificado) {
         try {
             // Verificar si el usuario con el ID proporcionado existe en la base de datos
