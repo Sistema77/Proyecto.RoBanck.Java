@@ -16,6 +16,7 @@ public class UsuarioDTO {
 	private byte[] foto;
 	private String tipoUsuario;
 	private String token;
+	private boolean cuentaConfirmada;
 	private Calendar expiracionToken;
 	private Calendar fch_alta;
 
@@ -133,6 +134,14 @@ public class UsuarioDTO {
 
 	public void setFch_alta(Calendar fch_alta) {
 		this.fch_alta = fch_alta;
+	}
+	
+	public boolean isCuentaConfirmada() {
+		return cuentaConfirmada;
+	}
+
+	public void setCuentaConfirmada(boolean cuentaConfirmada) {
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
 
 	@Override

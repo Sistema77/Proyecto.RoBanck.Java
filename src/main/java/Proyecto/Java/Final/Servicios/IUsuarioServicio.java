@@ -26,4 +26,8 @@ public interface IUsuarioServicio {
 	public boolean modificarContraseñaConToken(UsuarioDTO usuario);
 	
 	public boolean iniciarProcesoRecuperacion(String emailUsuario);
+	
+	public boolean confirmarCuenta(String token);
+	
+	public boolean estaLaCuentaConfirmada(String email);
 }

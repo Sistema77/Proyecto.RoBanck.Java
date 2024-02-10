@@ -54,6 +54,9 @@ public class UsuarioDAO {
 
 	@OneToMany(mappedBy = "usuario")
 	private List<CuentaDAO> cuentas;
+	
+	@Column(name = "cuenta_confirmada", nullable = false, columnDefinition = "boolean default false")
+	private boolean cuentaConfirmada;
 
 	public UsuarioDAO() {
 	}
@@ -160,6 +163,14 @@ public class UsuarioDAO {
 
 	public void setFch_alta(Calendar fch_alta) {
 		this.fch_alta = fch_alta;
+	}
+	
+	public boolean isCuentaConfirmada() {
+		return cuentaConfirmada;
+	}
+	
+	public void setCuentaConfirmada(boolean cuentaConfirmada) {
+		this.cuentaConfirmada = cuentaConfirmada;
 	}
 	
 	

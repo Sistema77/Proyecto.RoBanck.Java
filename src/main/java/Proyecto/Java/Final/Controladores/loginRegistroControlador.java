@@ -79,14 +79,40 @@ public class loginRegistroControlador {
     public String loginCorrecto(Model model, Authentication authentication) {
         try {
             model.addAttribute("nombreUsuario", authentication.getName());
+            boolean cuentaConfirmada = usuarioServicio.estaLaCuentaConfirmada(authentication.getName());
             
-            byte[] fotoby = usuarioServicio.buscarUsuarioEmail(authentication.getName()).getFoto();
-            String foto = ImagenBinario.pasarBinarioAString(fotoby);
-            model.addAttribute("foto", foto);
-            return "home";
+            if (cuentaConfirmada) {
+	            byte[] fotoby = usuarioServicio.buscarUsuarioEmail(authentication.getName()).getFoto();
+	            String foto = ImagenBinario.pasarBinarioAString(fotoby);
+	            model.addAttribute("foto", foto);
+	            return "home";
+            }else {
+            	return "login";
+            }
         } catch (Exception e) {
             logger.error("Error en loginCorrecto: " + e.getMessage(), e);
             return "login"; 
         }
     }
+
+    
+    @GetMapping("/auth/confirmar-cuenta")
+    public String confirmarCuenta(Model model, @RequestParam("token") String token) {
+        try {
+            boolean confirmacionExitosa = usuarioServicio.confirmarCuenta(token);
+
+            if (confirmacionExitosa) {
+                model.addAttribute("cuentaVerificada", "Su dirección de correo ha sido confirmada correctamente");
+            } else {
+                model.addAttribute("cuentaNoVerificada", "Error al confirmar su email");
+            }
+
+            return "login";
+        } catch (Exception e) {
+            model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
+            return "login";
+        }
+    }
+    
+    
 }

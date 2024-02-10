@@ -28,10 +28,6 @@ public class RecuperarPasswordControlador {
      * Gestiona la solicitud HTTP GET para la url /auth/recuperar.
      * Muestra la vista de recuperación de contraseña y envía a esta en el modelo el dto con el token
      * asociado al usuario para recuperar la contraseña, o en caso de no encontrarlo, mostrar un mensaje de error.
-     *
-     * @param token El token necesario para recuperar la contraseña obtenido de la url de la solicitud.
-     * @param model El modelo que se utiliza para enviar mensajes y datos en el modelo a la vista.
-     * @return La vista de recuperación de contraseña (recuperar.html) si el token es válido;
      * de lo contrario, la vista de inicioRecuperacion.html
      */
     @GetMapping("/auth/recuperar")

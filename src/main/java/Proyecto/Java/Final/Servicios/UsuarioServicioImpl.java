@@ -42,9 +42,16 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
             // Comprueba si ya existe un usuario por el Email
             UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
         	
-            if (usuario != null) {
-                return null;
-            }
+         // Comprueba si ya existe un usuario con el email que quiere registrar
+         			
+
+         			if (usuario != null && usuario.isCuentaConfirmada()) {
+         				logger.info("Confirmacion de Cuenta Usuario " + usuario.getEmail());
+         				return usuarioDTO;
+         			}
+         			if (usuario != null ) { // El email se encuentra registrado sin confirmar
+         				return null;
+         			}
             
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             
@@ -229,4 +236,42 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 		}
 	}
     
+    
+    @Override
+	public boolean confirmarCuenta(String token) {
+		try {
+			UsuarioDAO usuarioExistente = usuarioRepositorio.findByToken(token);
+
+			if (usuarioExistente != null && !usuarioExistente.isCuentaConfirmada()) {
+				// Entra en esta condición si el usuario existe y su cuenta no se ha confirmado
+				usuarioExistente.setCuentaConfirmada(true);
+				usuarioExistente.setToken(null);
+				usuarioRepositorio.save(usuarioExistente);
+
+				return true;
+			} else {
+				System.out.println("La cuenta no existe o ya está confirmada");
+				return false;
+			}
+		} catch (IllegalArgumentException iae) {
+			System.out.println("[Error UsuarioServicioImpl - confirmarCuenta()] Error al confirmar la cuenta " + iae.getMessage());
+			return false;
+		} catch (PersistenceException e) {
+			System.out.println("[Error UsuarioServicioImpl - confirmarCuenta()] Error de persistencia al confirmar la cuenta" + e.getMessage());
+			return false;
+		}
+	}
+
+	@Override
+	public boolean estaLaCuentaConfirmada(String email) {
+		try {
+			UsuarioDAO usuarioExistente = usuarioRepositorio.findByEmail(email);
+			if (usuarioExistente != null && usuarioExistente.isCuentaConfirmada()) {
+				return true;
+			}
+		} catch (Exception e) {
+			System.out.println("[Error UsuarioServicioImpl - estaLaCuentaConfirmada()] Error al comprobar si la cuenta ya ha sido confirmada" + e.getMessage());
+		}	
+		return false;
+	}
 }
