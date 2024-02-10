@@ -26,6 +26,8 @@ public interface UsuarioRepositorio extends JpaRepository<UsuarioDAO, Long> {
 	
 	public UsuarioDAO findByName(String name);
 	
+	public UsuarioDAO findByToken(String token);
+	
 	public List<UsuarioDAO> findAll();
 	
 	

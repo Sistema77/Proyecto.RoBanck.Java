@@ -34,22 +34,10 @@
 		<form class="mb-3" method="GET" th:action="@{/auth/registrar}" >
 			<button type="submit" class="form-btn">Registrarse</button>
 		</form>
-		<form th:action="@{/auth/iniciarRecuperacion}" th:method="get">
+		<form th:action="@{/auth/solicitar-recuperacion}" th:method="get">
     		<button type="submit" class="form-btn negro">Recuperar contraseña</button>
 		</form>
 	</div>
-	<script th:if="${not #strings.isEmpty(mensajeRegistroExitoso)}">
-	    mostrarNotificacion("¡Registro exitoso!", "Ahora puede iniciar sesión", 'success');
-	</script>
-	<script th:if="${not #strings.isEmpty(mensajeExitoMail)}">
-	    mostrarNotificacion("¡Email enviado!", "Se ha enviado a su direccion un correo de recuperación", 'info');
-	</script>
-	<script th:if="${not #strings.isEmpty(contraseñaModificadaExito)}">
-	    mostrarNotificacion("¡Exito!", "Se ha modificado con correctamente la contraseña", 'success');
-	</script>
-	<script th:if="${param.error}">
-	    mostrarNotificacion("¡Error!","Las credenciales introducidas no son correctas", 'error');
-	</script>
 	
 </body>
 

@@ -20,4 +20,10 @@ public interface IUsuarioServicio {
 	public UsuarioDTO buscarUsuarioEmail(String email);
 	
 	public void modificarUsuario(long id, UsuarioDTO usuarioModificado);
+	
+	public UsuarioDTO obtenerUsuarioPorToken(String token);
+	
+	public boolean modificarContraseñaConToken(UsuarioDTO usuario);
+	
+	public boolean iniciarProcesoRecuperacion(String emailUsuario);
 }
