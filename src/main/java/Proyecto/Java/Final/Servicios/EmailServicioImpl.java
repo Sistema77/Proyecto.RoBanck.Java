@@ -29,17 +29,14 @@ public class EmailServicioImpl implements IEmailServicio {
 	            MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");
 
 	            helper.setFrom("parafirebaseestudiar@gmail.com");
-	            System.out.println("1");
 	            helper.setTo(emailDestino);
-	            System.out.println("2");
 	            helper.setSubject("Recuperación de contraseña RoBanck");
-	            System.out.println("3");
 	            String urlDominio = "http://localhost:8080";
 	            String urlDeRecuperacion = String.format("%s/auth/recuperar?token=%s", urlDominio, token);
 	            
 	            String cuerpoMensaje = String.format(
 	    				"﻿<!DOCTYPE html> <html lang='es'> <body> <div style='width: 600px; padding: 20px; border: 2px solid black; border-radius: 13px; background-color: #DEDEDE;"
-	    				+ " font-family: Sans-serif'> <h1 style='color:#1f3c85'>Restablecer contraseña<b style='color:#5993d3'> BikerConnect</b></h1>"
+	    				+ " font-family: Sans-serif'> <h1 style='color:#1f3c85'>Restablecer contraseña<b style='color:#5993d3'> RoBanck</b></h1>"
 	    				+ " <p style='margin-bottom:25px'>Estimado/a&nbsp;<b>%s</b>:</p> <p style='margin-bottom:25px'>"
 	    				+ "Recibiste este correo porque se solicitó un restablecimiento de contraseña para tu cuenta. Haz clic en el botón que aparece a continuación para cambiar tu contraseña.</p>"
 	    				+ " <a style='padding: 10px 15px; border-radius: 10px; background-color: #5993d3; color: white; text-decoration: none' href='%s' target='_blank'>Cambiar contraseña</a>"
@@ -65,19 +62,19 @@ public class EmailServicioImpl implements IEmailServicio {
             MimeMessage mensaje = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mensaje, true, "UTF-8");
 
-            helper.setFrom("nikoalvarezzapata@gmail.com");
+            helper.setFrom("parafirebaseestudiar@gmail.com");
             helper.setTo(emailDestino);
-            helper.setSubject("Confirmación de cuenta BikerConnect");
+            helper.setSubject("Confirmación de cuenta RoBanck");
 
             String urlDominio = "http://localhost:8080";
             String urlDeConfirmacion = String.format("%s/auth/confirmar-cuenta?token=%s", urlDominio, token);
 
             String cuerpoMensaje = String.format(
-                "﻿<!DOCTYPE html> <html lang='es'> <body> <div style='width: 600px; padding: 20px; border: 2px solid black; border-radius: 13px; background-color: #DEDEDE; font-family: Sans-serif'> <h1 style='color:#1f3c85'>Confirmar cuenta<b style='color:#5993d3'> BikerConnect</b></h1>"
+                "﻿<!DOCTYPE html> <html lang='es'> <body> <div style='width: 600px; padding: 20px; border: 2px solid black; border-radius: 13px; background-color: #DEDEDE; font-family: Sans-serif'> <h1 style='color:#1f3c85'>Confirmar cuenta<b style='color:#5993d3'> RoBanck</b></h1>"
                 + " <p style='margin-bottom:25px'>Estimado/a&nbsp;<b>%s</b>:</p> <p style='margin-bottom:25px'>"
-                + "Bienvenido/a a BikerConnect. Para confirmar tu cuenta, haz clic en el botón que aparece a continuación:</p>"
+                + "Bienvenido/a a RoBanck. Para confirmar tu cuenta, haz clic en el botón que aparece a continuación:</p>"
                 + " <a style='padding: 10px 15px; border-radius: 10px; background-color: #5993d3; color: white; text-decoration: none' href='%s' target='_blank'>Confirmar cuenta</a>"
-                + " <p style='margin-top:25px'>Gracias por unirte a BikerConnect.</p> </div> </body> </html>",
+                + " <p style='margin-top:25px'>Gracias por unirte a RoBanck.</p> </div> </body> </html>",
                 nombreUsuario, urlDeConfirmacion);
 
             helper.setText(cuerpoMensaje, true);

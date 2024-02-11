@@ -36,40 +36,54 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
 
     private static final Logger logger = LoggerFactory.getLogger(UsuarioServicioImpl.class);
     
-    @Override
-    public UsuarioDTO registrar(UsuarioDTO usuarioDTO) {
-        try {
-            // Comprueba si ya existe un usuario por el Email
-            UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
-        	
-         // Comprueba si ya existe un usuario con el email que quiere registrar
-         			
+	@Override
+	public UsuarioDTO registrar(UsuarioDTO usuarioDTO) {
+		try {
+			// Comprueba si ya existe un usuario por el Email
+			UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO.getEmail());
 
-         			if (usuario != null && usuario.isCuentaConfirmada()) {
-         				logger.info("Confirmacion de Cuenta Usuario " + usuario.getEmail());
-         				return usuarioDTO;
-         			}
-         			if (usuario != null ) { // El email se encuentra registrado sin confirmar
-         				return null;
-         			}
-            
-            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            
-            usuarioDTO.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); // encriptar la contraseña
-            UsuarioDAO usuarioDao = usuarioToDao.usuarioToDao(usuarioDTO);
-            usuarioDao.setTipoUsuario("ROLE_USER");
-            usuarioDao.setFch_alta(Calendar.getInstance());
-            
-            System.out.println("DAO Foto: " + usuarioDao.getFoto());
-            
-            usuarioRepositorio.save(usuarioDao);
-            logger.info("Usuario " + usuarioDao.getEmail() + " REGISTRADO");
-            return usuarioDTO;
-        } catch (Exception e) {
-            logger.error("Error en registrar: " + e.getMessage(), e);
-            return null; 
-        }
-    }
+			// Comprueba si ya existe un usuario con el email que quiere registrar
+
+			if (usuario != null && usuario.isCuentaConfirmada()) {
+				logger.info("Usuario ya Confirmado Cuenta Usuario " + usuario.getEmail());
+				return usuarioDTO;
+			}
+			if (usuario != null) { // El email se encuentra registrado sin confirmar
+				return null;
+			}
+
+			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+			usuarioDTO.setPassword(passwordEncoder.encode(usuarioDTO.getPassword())); // encriptar la contraseña
+			UsuarioDAO usuarioDao = usuarioToDao.usuarioToDao(usuarioDTO);
+			usuarioDao.setTipoUsuario("ROLE_USER");
+			usuarioDao.setFch_alta(Calendar.getInstance());
+
+			if (usuarioDTO.isCuentaConfirmada()) {
+				usuarioDao.setCuentaConfirmada(true);
+				usuarioRepositorio.save(usuarioDao);
+			} else {
+				usuarioDao.setCuentaConfirmada(false);
+				// Generar token de confirmación
+				String token = passwordEncoder.encode(RandomStringUtils.random(30));
+				usuarioDao.setToken(token);
+
+				// Guardar el usuario en la base de datos
+				usuarioRepositorio.save(usuarioDao);
+
+				// Enviar el correo de confirmación
+				String nombreUsuario = usuarioDao.getName();
+				emailServicio.enviarEmailConfirmacion(usuarioDTO.getEmail(), nombreUsuario, token);
+			}
+
+			usuarioRepositorio.save(usuarioDao);
+			logger.info("Usuario " + usuarioDao.getEmail() + " REGISTRADO");
+			return usuarioDTO;
+		} catch (Exception e) {
+			logger.error("Error en registrar: " + e.getMessage(), e);
+			return null;
+		}
+	}
     
     @Override
     public List<UsuarioDTO> listadoUsuario() {
