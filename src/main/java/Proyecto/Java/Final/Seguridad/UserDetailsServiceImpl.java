@@ -23,6 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     
     private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     
+    // Método para cargar los detalles del usuario por su nombre de usuario (email)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
@@ -43,11 +44,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 builder.password(user.getPassword());
                 builder.authorities(new SimpleGrantedAuthority(user.getTipoUsuario()));
             } else { 
+                // Si el usuario no se encuentra en la base de datos, lanzar una excepción
                 System.out.println("Usuario no encontrado en la base de datos");
                 throw new UsernameNotFoundException("Usuario no encontrado");
             }
+            // Devolver la instancia de UserDetails construida
             return builder.build();
         } catch (Exception e) {
+            // Manejo de errores
             logger.error("Error en loadUserByUsername: " + e.getMessage(), e);
             throw new UsernameNotFoundException("Error en autenticación");
         }

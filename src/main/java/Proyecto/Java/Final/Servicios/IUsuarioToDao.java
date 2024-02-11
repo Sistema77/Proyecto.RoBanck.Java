@@ -11,18 +11,12 @@ import Proyecto.Java.Final.DTO.UsuarioDTO;
  */
 public interface IUsuarioToDao {
 	
-	/**
-	 * Metodo que convierte campo a campo un objeto UsuarioDTO a DAO
-	 * @param ausuarioDTO el objeto usuarioDTO
-	 * @return Usuario convertido a DAO
-	 */
+	//Metodo que convierte campo a campo un objeto UsuarioDTO a DAO
+
 	public UsuarioDAO usuarioToDao(UsuarioDTO usuarioDTO);
 	
-	/**
-	 * Metodo que convierte toda una lista de objetos UsuarioDTO a lista de DAOs
-	 * @param listaUsuarioDTO lista cargadas de objetos usuarioDTO
-	 * @return Lista de usuarios DAO
-	 */
+	//Metodo que convierte toda una lista de objetos UsuarioDTO a lista de DAOs
+
 	public List<UsuarioDAO> listUsuarioToDao(List<UsuarioDTO>listaUsuarioDTO);
 	
 

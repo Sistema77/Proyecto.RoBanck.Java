@@ -10,56 +10,44 @@ import org.springframework.web.bind.annotation.PostMapping;
 import Proyecto.Java.Final.DTO.UsuarioDTO;
 import Proyecto.Java.Final.Servicios.IUsuarioServicio;
 
-/**
- * Clase que ejerce de controlador de la vista de solicitarRecuperacion para gestionar las
- * solicitudes relacionadas con el inicio del proceso de recuperación.
- */
 @Controller
 public class SolicitarRecuperacionControlador {
 
     @Autowired
     private IUsuarioServicio usuarioServicio;
 
-    /**
-     * Gestiona la solicitud HTTP GET para la url /auth/iniciarRecuperacion 
-     * y muestra la vista de inicio de recuperación.
-     *
-     * @param model El modelo en el que se añade como atributo un objeto usuarioDTO vacío para enviarlo a la vista.
-     * @return La vista de solicitarRecuperacionPassword.html.
-     */
+    // Método para mostrar la vista de inicio de recuperación de contraseña
     @GetMapping("/auth/solicitar-recuperacion")
     public String mostrarVistainiciarRecuperacion(Model model) {
         try {
+            // Agrega un nuevo objeto UsuarioDTO al modelo para vincular con el formulario de inicio de recuperación
             model.addAttribute("usuarioDTO", new UsuarioDTO());
             return "solicitarRecuperacionPassword";
         } catch (Exception e) {
+            // Manejo de errores
             model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
             return "solicitarRecuperacionPassword";
         }
     }
 
-    /**
-     * Procesa la solicitud HTTP POST para la url /auth/iniciarRecuperacion 
-     * Se utiliza el email del usuario para intentar iniciar el proceso de recuperación.
-     *
-     * @param usuarioDTO El objeto UsuarioDTO que recibe del modelo y contiene el email del usuario.
-     * @param model      El modelo que se utiliza para enviar mensajes a la vista.
-     * @return La vista de login.html si el envío del email fue exitoso; 
-     * en caso contrario, la vista de inicio de recuperación.html.
-     */
+    // Método para procesar la solicitud de inicio de recuperación de contraseña
     @PostMapping("/auth/iniciar-recuperacion")
     public String procesarInicioRecuperacion(@ModelAttribute UsuarioDTO usuarioDTO, Model model) {
         try {
+            // Intenta iniciar el proceso de recuperación utilizando el correo electrónico proporcionado
             boolean envioConExito = usuarioServicio.iniciarProcesoRecuperacion(usuarioDTO.getEmail());
 
             if (envioConExito) {
+                // Si el proceso de recuperación se inicia correctamente, muestra un mensaje de éxito y redirige a la vista de inicio de sesión
                 model.addAttribute("mensajeExitoMail", "Proceso de recuperación OK");
                 return "login";
             } else {
+                // Si hay un error en el proceso de recuperación, muestra un mensaje de error y vuelve a la vista de inicio de recuperación
                 model.addAttribute("mensajeErrorMail", "Error en el proceso de recuperación.");
             }
             return "solicitarRecuperacionPassword";
         } catch (Exception e) {
+            // Manejo de errores
             model.addAttribute("error", "Error al procesar la solicitud. Por favor, inténtelo de nuevo.");
             return "solicitarRecuperacionPassword";
         }
