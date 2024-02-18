@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import Proyecto.Java.Final.DAO.CuentaDAO;
+import Proyecto.Java.Final.DAO.UsuarioDAO;
 
 
 public interface CuentaRepositorio extends JpaRepository<CuentaDAO, Long>{
@@ -15,4 +16,6 @@ public interface CuentaRepositorio extends JpaRepository<CuentaDAO, Long>{
 	//Método que devuelve todos los usuario de la base de datos
 	
 	public List<CuentaDAO> findAll();
+	
+	public List<CuentaDAO> findByUsuario(UsuarioDAO usuario);
 }

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+<meta charset="UTF-8">
+<title>Home</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
+	<link rel="stylesheet" href="../static/css/menu.css" th:href="@{/css/menu.css}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script th:src="@{/script/script.js}"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<nav>
+		<div class="menu">
+			<div class="logo">
+				<a>RoBanck</a>
+				
+				<a>
+					<img alt="Default Image" class="image-navbar" src="${foto}" />
+				</a>
+				
+			</div>
+			<ul class="nav-links">
+				<li class= "text-center"><span th:text="${nombreUsuario}">usuario</span></li>
+				<li class="mt-3 me-5" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/privada/administracion}">Administración</a></li>
+				<li>
+					<form th:action="@{/auth/logout}" method="post" id="logoutForm">
+						<button type="submit" class="btn btn-dark mt-2">Logout</button>
+					</form>
+				</li>
+			</ul>
+		</div>
+	</nav>
+
+	<div>
+		<table class="table table-striped table-bordered" th:if="${not #lists.isEmpty(cuentas)}">
+					<thead class="thead-inverse">
+						<tr>
+							<th class="table-dark">id</th>
+							<th class="table-dark">Numero Cuenta</th>
+							<th class="table-dark">saldo</th>
+							<th class="table-dark">conNomina</th>
+
+							<th class="table-dark" >editar</th>
+							<th  class="table-dark">eliminar</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="cuenta : ${cuentas}">
+							<td th:text="${cuenta.id_cuenta}"></td>
+							<td th:text="${cuenta.numeroCuenta}"></td>
+							<td th:text="${cuenta.saldo}"></td>
+							<td th:text="${cuenta.conNomina}"></td>
+							<td >
+								<form class="form" th:action="@{'/privada/modificarcuenta/' + ${cuenta.id_cuenta}}"  method="post">
+									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
+									<button type="submit" class="btn btn-primary"
+										th:text="modificar"></button>
+								</form>
+							</td>
+							<td>
+								<form class="form" th:action="@{'/privada/eliminarcuenta/' + ${cuenta.id_cuenta}}" method="post">
+									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
+									<button type="submit" class="btn btn-danger"
+										th:text="eliminar"></button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+	</div>
+	<script th:if="${not #strings.isEmpty(noAdmin)}">
+	    mostrarNotificacion("Acceso Restringido", "No tiene permisos");
+	</script>
+</body>
+
+</html>

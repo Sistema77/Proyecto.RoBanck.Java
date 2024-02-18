@@ -3,10 +3,12 @@ package Proyecto.Java.Final.Servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import Proyecto.Java.Final.DAO.CuentaDAO;
 import Proyecto.Java.Final.DTO.CuentaDTO;
 
-
+@Service
 public class CuentaToDaoImple implements ICuentaToDao{
 
 	@Override

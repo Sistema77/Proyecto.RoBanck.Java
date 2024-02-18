@@ -3,11 +3,14 @@ package Proyecto.Java.Final.Servicios;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import Proyecto.Java.Final.DAO.CuentaDAO;
 import Proyecto.Java.Final.DAO.UsuarioDAO;
 import Proyecto.Java.Final.DTO.CuentaDTO;
 import Proyecto.Java.Final.DTO.UsuarioDTO;
 
+@Service
 public class CuentaToDtoImple implements ICuentaToDto {
 
 	@Override
@@ -16,6 +19,7 @@ public class CuentaToDtoImple implements ICuentaToDto {
             // Crear un nuevo objeto UsuarioDTO y copiar los atributos del UsuarioDAO
 			CuentaDTO dto = new CuentaDTO();
            
+			dto.setId_cuenta(u.getId_cuenta());
 			dto.setNumeroCuenta(u.getNumeroCuenta());
 			dto.setSaldo(u.getSaldo());
 			dto.setFch_apertura(u.getFch_apertura());

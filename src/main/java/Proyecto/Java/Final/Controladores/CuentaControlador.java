@@ -45,8 +45,21 @@ public class CuentaControlador {
 			 
 			 return "cuenta";
 		 }catch(Exception e) {
-			 logger.error("Error en CuentaGet: " + e.getMessage(), e);
+			 logger.error("Error en crearCuenta: " + e.getMessage(), e);
 	         return "home";
 		 }
+	 }
+	 
+	 @GetMapping("/privada/ver-cuenta")
+	 public String verCuenta(Model model, Authentication authentication) {
+		    try {
+		        model.addAttribute("nombreUsuario", authentication.getName());
+		        // Aquí estás tratando de acceder directamente a la lista de cuentas bancarias desde el servicio
+		        model.addAttribute("cuentas", cuentaServicio.verCuenta(authentication.getName()));
+		        return "listacuenta";
+		    } catch(Exception e) {
+		        logger.error("Error en crearCuenta: " + e.getMessage(), e);
+		        return "home";
+		    }
 	 }
 }

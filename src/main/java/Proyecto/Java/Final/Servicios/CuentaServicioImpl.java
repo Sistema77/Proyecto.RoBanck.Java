@@ -1,6 +1,7 @@
 package Proyecto.Java.Final.Servicios;
 
 import java.util.Calendar;
+import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -22,8 +23,11 @@ public class CuentaServicioImpl implements ICuentaServicio{
 	@Autowired
 	private CuentaRepositorio cuentaRepositorio; 
 	
-	  @Autowired
-	    private UsuarioRepositorio usuarioRepositorio;
+	@Autowired
+	private ICuentaToDto toDto;
+	
+	@Autowired
+	private UsuarioRepositorio usuarioRepositorio;
 	
 	@Override
 	public CuentaDAO crearCuenta(String usuarioDTO) {
@@ -52,5 +56,32 @@ public class CuentaServicioImpl implements ICuentaServicio{
 	        return null; // Devuelve null en caso de excepción
 	    }
 	}
+
+	@Override
+	public List<CuentaDTO> verCuenta(String usuarioDTO) {
+		  try {
+		        // Comprueba si ya existe un usuario por el Email
+		    	
+		        UsuarioDAO usuario = usuarioRepositorio.findByEmail(usuarioDTO);
+
+		        // Comprueba si ya existe un usuario con el email que quiere registrar
+		        if (usuario != null && usuario.isCuentaConfirmada()) {
+		        	
+		        	// Devuelve una lista de las cuentas con relacion con el Usuario
+		            
+		        	return toDto.listaCuentaToDto(cuentaRepositorio.findByUsuario(usuario));
+		            
+		        } else if (usuario != null) { 
+		            return null;
+		        } else {
+		            return null; // Devuelve null si no se encuentra el usuario
+		        }
+		    } catch (Exception e) {
+		        //logger.error("Error en registrar: " + e.getMessage(), e);
+		        return null; // Devuelve null en caso de excepción
+		    }
+	}
+	
+	
 
 }
