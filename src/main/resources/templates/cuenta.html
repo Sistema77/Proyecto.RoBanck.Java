@@ -27,7 +27,6 @@
 			</div>
 			<ul class="nav-links">
 				<li class= "text-center"><span th:text="${nombreUsuario}">usuario</span></li>
-				<li class="mt-3 me-5" sec:authorize="hasRole('ROLE_USER')"><a th:href="@{/privada/cuenta}">Cuentas</a></li>
 				<li class="mt-3 me-5" sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{/privada/administracion}">Administración</a></li>
 				<li>
 					<form th:action="@{/auth/logout}" method="post" id="logoutForm">
@@ -38,7 +37,19 @@
 		</div>
 	</nav>
 
-	<h3 class="text-dark text-center mt-5">Bienvenido </h3>
+	<div class="container">
+		<div class="position-absolute top-50 start-50 translate-middle">
+			<ul  class="list-group">
+				<li class="list-group-item">
+					<a th:href="@{/privada/crear-cuenta}" class="btn btn-success m-4">Crear Cuenta</a>
+				</li>
+				<li class="list-group-item">
+					<a th:href="@{/privada/ver-cuenta}" class="btn btn-success m-4">Ver Cuentas</a>
+				</li>
+			</ul>
+		</div>
+		
+	</div>
 	<script th:if="${not #strings.isEmpty(noAdmin)}">
 	    mostrarNotificacion("Acceso Restringido", "No tiene permisos");
 	</script>

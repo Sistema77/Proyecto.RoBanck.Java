@@ -25,14 +25,13 @@ public class TransacionDAO {
 
 	@Column(name = "fecha_Hora")
 	private Calendar fecha_Hora;
+	
+	@Column(name = "Tipo_Trasa")
+	private String tipoTrasa;
 
 	@ManyToOne
-	@JoinColumn(name = "cuentaEnvia")
-	private CuentaDAO cuentaEnvia;
-
-	@ManyToOne
-	@JoinColumn(name = "cuentaRecive")
-	private CuentaDAO cuentaRecive;
+	@JoinColumn(name = "cuenta")
+	private CuentaDAO cuenta;
 
 	public TransacionDAO() {
 	}
@@ -61,20 +60,22 @@ public class TransacionDAO {
 		this.fecha_Hora = fecha_Hora;
 	}
 
-	public CuentaDAO getCuentaEnvia() {
-		return cuentaEnvia;
+	public String getTipoTrasa() {
+		return tipoTrasa;
 	}
 
-	public void setCuentaEnvia(CuentaDAO cuentaEnvia) {
-		this.cuentaEnvia = cuentaEnvia;
+	public void setTipoTrasa(String tipoTrasa) {
+		this.tipoTrasa = tipoTrasa;
 	}
 
-	public CuentaDAO getCuentaRecive() {
-		return cuentaRecive;
+	public CuentaDAO getCuenta() {
+		return cuenta;
 	}
 
-	public void setCuentaRecive(CuentaDAO cuentaRecive) {
-		this.cuentaRecive = cuentaRecive;
+	public void setCuenta(CuentaDAO cuenta) {
+		this.cuenta = cuenta;
 	}
+
+	
 	
 }

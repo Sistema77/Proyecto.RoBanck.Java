@@ -42,13 +42,10 @@ public class CuentaDAO {
     @JoinColumn(name="id_user")
     private UsuarioDAO usuario;
 
-    @OneToMany(mappedBy="cuentaEnvia")
-    private List<TransacionDAO> transacionesEnviadas;
+    @OneToMany(mappedBy="id_trasaciones")
+    private List<TransacionDAO> transaciones;
 
-    @OneToMany(mappedBy="cuentaRecive")
-    private List<TransacionDAO> transacionesRecibidas;
-
-    @OneToMany(mappedBy="cuenta")
+    @OneToMany(mappedBy="id_Credito")
     private List<CreditoDAO> creditos;
     
     // Constructor
@@ -107,20 +104,14 @@ public class CuentaDAO {
 		this.usuario = usuario;
 	}
 
-	public List<TransacionDAO> getTransacionesEnviadas() {
-		return transacionesEnviadas;
+
+
+	public List<TransacionDAO> getTransaciones() {
+		return transaciones;
 	}
 
-	public void setTransacionesEnviadas(List<TransacionDAO> transacionesEnviadas) {
-		this.transacionesEnviadas = transacionesEnviadas;
-	}
-
-	public List<TransacionDAO> getTransacionesRecibidas() {
-		return transacionesRecibidas;
-	}
-
-	public void setTransacionesRecibidas(List<TransacionDAO> transacionesRecibidas) {
-		this.transacionesRecibidas = transacionesRecibidas;
+	public void setTransaciones(List<TransacionDAO> transaciones) {
+		this.transaciones = transaciones;
 	}
 
 	public List<CreditoDAO> getCreditos() {
