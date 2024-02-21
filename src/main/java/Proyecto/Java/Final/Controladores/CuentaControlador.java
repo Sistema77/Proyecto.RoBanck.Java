@@ -18,6 +18,9 @@ public class CuentaControlador {
 
 	 @Autowired
 	 private ICuentaServicio cuentaServicio;
+	 
+	 @Autowired
+	 private IUsuarioServicio usuarioServicio;
 	
 	 private static final Logger logger = LoggerFactory.getLogger(CuentaControlador.class);
 	 
@@ -27,7 +30,7 @@ public class CuentaControlador {
 	        try {
 	            // Agrega el nombre de usuario al modelo
 	            model.addAttribute("nombreUsuario", authentication.getName());
-	          
+	            model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
 	            return "cuenta"; 
 	        } catch (Exception e) {
 	            // Manejo de errores
@@ -54,6 +57,7 @@ public class CuentaControlador {
 	 public String verCuenta(Model model, Authentication authentication) {
 		    try {
 		        model.addAttribute("nombreUsuario", authentication.getName());
+		        model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
 		        // Aquí estás tratando de acceder directamente a la lista de cuentas bancarias desde el servicio
 		        model.addAttribute("cuentas", cuentaServicio.verCuenta(authentication.getName()));
 		        return "listacuenta";

@@ -279,4 +279,18 @@ public class UsuarioServicioImpl implements IUsuarioServicio {
         }    
         return false;
     }
+    
+    //Metodo para ver las fotos en las vistas
+    @Override
+    public String verFoto(String email) {
+    	try {
+    		UsuarioDTO usuario = this.buscarUsuarioEmail(email);
+    		
+    		return ImagenBinario.pasarBinarioAString(usuario.getFoto());
+    		
+    	}catch(Exception e){
+    		 logger.error("[Error UsuarioServicioImpl - estaLaCuentaConfirmada()] Error al comprobar si la cuenta ya ha sido confirmada" + e.getMessage());
+    		 return "";
+    	}
+    }
 }

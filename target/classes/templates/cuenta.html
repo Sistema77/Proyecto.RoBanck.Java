@@ -20,8 +20,9 @@
 			<div class="logo">
 				<a>RoBanck</a>
 				
-				<a>
-					<img alt="Default Image" class="image-navbar" src="${foto}" />
+				<a> 
+				<img alt class="sizing-normal" height="768" th:if="${foto != null}"
+                         th:src="'data:image/png;base64, ' + ${foto}" width="1024">
 				</a>
 				
 			</div>

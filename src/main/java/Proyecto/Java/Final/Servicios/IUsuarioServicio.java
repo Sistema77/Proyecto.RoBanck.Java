@@ -42,4 +42,7 @@ public interface IUsuarioServicio {
     
     // Método para verificar si la cuenta de un usuario está confirmada
     public boolean estaLaCuentaConfirmada(String email);
+   
+    //Metodo para ver las fotos en las vistas
+    public String verFoto(String email);
 }
