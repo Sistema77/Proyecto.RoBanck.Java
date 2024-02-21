@@ -22,6 +22,7 @@ public class SolicitarRecuperacionControlador {
         try {
             // Agrega un nuevo objeto UsuarioDTO al modelo para vincular con el formulario de inicio de recuperación
             model.addAttribute("usuarioDTO", new UsuarioDTO());
+            
             return "solicitarRecuperacionPassword";
         } catch (Exception e) {
             // Manejo de errores

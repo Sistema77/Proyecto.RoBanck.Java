@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="../static/css/menu.css" th:href="@{/css/menu.css}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js" th:src="@{/webjars/jquery/jquery.min.js}"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<script th:src="@{/script/script.js}"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/js/bootstrap.min.js" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 </head>
 
@@ -21,8 +20,8 @@
 				<a>RoBanck</a>
 				
 				<a> 
-				<img alt class="sizing-normal" height="768" th:if="${foto != null}"
-                         th:src="'data:image/png;base64, ' + ${foto}" width="1024">
+				<img alt class="sizing-normal rounded"  th:if="${foto != null}"
+                         th:src="'data:image/png;base64, ' + ${foto}" width="130" >
 				</a>
 				
 			</div>
@@ -51,9 +50,9 @@
 		</div>
 		
 	</div>
-	<script th:if="${not #strings.isEmpty(noAdmin)}">
-	    mostrarNotificacion("Acceso Restringido", "No tiene permisos");
-	</script>
+	<div th:if="${not #strings.isEmpty(noAdmin)}">
+	    Acceso Restringido, No tiene permisos
+	</div>
 </body>
 
 </html>

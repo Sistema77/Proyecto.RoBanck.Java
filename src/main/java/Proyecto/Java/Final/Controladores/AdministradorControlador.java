@@ -43,13 +43,14 @@ public class AdministradorControlador {
                 
                 // Agrega la lista de usuarios al modelo para mostrarla en la vista
                 model.addAttribute("usuarios", usuarios);
-                
+                model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
                 return "administracion";    
             } 
             
             // Si el usuario no es administrador, agrega un mensaje de error al modelo y redirige a la página de inicio
             model.addAttribute("noAdmin", "No eres admin");
             model.addAttribute("name", authentication.getName());
+            model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
             
             return "home";
         } catch (Exception e) {
@@ -89,7 +90,7 @@ public class AdministradorControlador {
     
      // Método para mostrar el formulario de modificación de usuario
     @PostMapping("/privada/modificar/{id}")
-    public String mostrarFormularioModificar(@PathVariable long id, Model model) {
+    public String mostrarFormularioModificar(@PathVariable long id, Model model,Authentication authentication) {
          try {
             // Busca el usuario por ID y lo convierte en un DTO para mostrar en el formulario
             UsuarioDAO usuarioDto = usuarioServicio.buscarUsuarioId(id);
@@ -97,7 +98,7 @@ public class AdministradorControlador {
             
             // Agrega el usuario al modelo
             model.addAttribute("usuario", usuarioDao);
-            
+            model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
             return "editar";
         } catch (Exception e) {
             // Manejo de errores

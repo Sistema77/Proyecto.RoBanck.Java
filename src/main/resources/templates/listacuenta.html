@@ -19,8 +19,9 @@
 			<div class="logo">
 				<a>RoBanck</a>
 				
-				<a>
-					<img alt="Default Image" class="image-navbar" src="${foto}" />
+				<a> 
+				<img alt class="sizing-normal rounded"  th:if="${foto != null}"
+                         th:src="'data:image/png;base64, ' + ${foto}" width="130" >
 				</a>
 				
 			</div>
@@ -58,14 +59,14 @@
 							<td >
 								<form class="form" th:action="@{'/privada/modificarcuenta/' + ${cuenta.id_cuenta}}"  method="post">
 									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
-									<button type="submit" class="btn btn-primary"
+									<button disabled type="submit" class="btn btn-primary"
 										th:text="modificar"></button>
 								</form>
 							</td>
 							<td>
 								<form class="form" th:action="@{'/privada/eliminarcuenta/' + ${cuenta.id_cuenta}}" method="post">
 									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
-									<button type="submit" class="btn btn-danger"
+									<button disabled type="submit" class="btn btn-danger"
 										th:text="eliminar"></button>
 								</form>
 							</td>
@@ -73,9 +74,9 @@
 					</tbody>
 				</table>
 	</div>
-	<script th:if="${not #strings.isEmpty(noAdmin)}">
-	    mostrarNotificacion("Acceso Restringido", "No tiene permisos");
-	</script>
+	<div th:if="${not #strings.isEmpty(noAdmin)}">
+	    Acceso Restringido, No tiene permisos
+	</div>
 </body>
 
 </html>

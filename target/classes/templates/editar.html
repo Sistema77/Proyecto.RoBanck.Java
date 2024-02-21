@@ -15,7 +15,13 @@
 <body>
 	<nav>
 		<div class="menu">
-			<div class="logo"><a>RoBanck</a></div>
+			<div class="logo">
+			<a>RoBanck</a>
+				<a> 
+				<img alt class="sizing-normal rounded"  th:if="${foto != null}"
+                         th:src="'data:image/png;base64, ' + ${foto}" width="130" >
+				</a>
+			</div>
 			<ul class="nav-links">
 				<li><a th:href="@{/auth/login}" sec:authorize='!isAuthenticated()'>Volver</a></li>
 				<li><a th:href="@{/privada/listado}" sec:authorize='hasAnyRole("ROLE_ADMIN")'>Volver</a></li>

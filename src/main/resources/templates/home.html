@@ -20,8 +20,9 @@
 			<div class="logo">
 				<a>RoBanck</a>
 				
-				<a>
-					<img alt="Default Image" class="image-navbar" src="${foto}" />
+				<a> 
+					<img alt class="sizing-normal rounded"  th:if="${foto != null}"
+	                         th:src="'data:image/png;base64, ' + ${foto}" width="130" >
 				</a>
 				
 			</div>
@@ -39,9 +40,9 @@
 	</nav>
 
 	<h3 class="text-dark text-center mt-5">Bienvenido </h3>
-	<script th:if="${not #strings.isEmpty(noAdmin)}">
-	    mostrarNotificacion("Acceso Restringido", "No tiene permisos");
-	</script>
+	<div th:if="${not #strings.isEmpty(noAdmin)}">
+	   Acceso Restringido, No tiene permisos
+	</div>
 </body>
 
 </html>

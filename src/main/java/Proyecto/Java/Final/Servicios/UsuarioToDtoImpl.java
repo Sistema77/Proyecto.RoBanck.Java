@@ -26,6 +26,7 @@ public class UsuarioToDtoImpl implements IUsuarioToDto {
             dto.setName(u.getName());
             dto.setLastName(u.getLastName());
             dto.setDni(u.getDni());
+            dto.setFoto(u.getFoto());
             dto.setTlf(u.getTlf());
             dto.setEmail(u.getEmail());
             dto.setPassword(u.getPassword());

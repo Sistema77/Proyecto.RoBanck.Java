@@ -40,6 +40,7 @@ public class CuentaServicioImpl implements ICuentaServicio{
 	        if (usuario != null && usuario.isCuentaConfirmada()) {
 	            CuentaDAO cuenta = new CuentaDAO();
 	            cuenta.setConNomina(false);
+	            cuenta.setNumeroCuenta("ES21 1465 0100 72 2030876293");
 	            cuenta.setFch_apertura(Calendar.getInstance());
 	            cuenta.setSaldo(0.0);
 	            cuenta.setUsuario(usuario);

@@ -31,6 +31,7 @@ public class CuentaControlador {
 	            // Agrega el nombre de usuario al modelo
 	            model.addAttribute("nombreUsuario", authentication.getName());
 	            model.addAttribute("foto", usuarioServicio.verFoto(authentication.getName()));
+
 	            return "cuenta"; 
 	        } catch (Exception e) {
 	            // Manejo de errores
