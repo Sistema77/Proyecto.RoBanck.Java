@@ -4,7 +4,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import org.apache.commons.lang3.RandomStringUtils;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,6 +27,8 @@ public class CuentaServicioImpl implements ICuentaServicio{
 	
 	@Autowired
 	private UsuarioRepositorio usuarioRepositorio;
+	
+	private static final Logger logger = LoggerFactory.getLogger(UsuarioServicioImpl.class);
 	
 	@Override
 	public CuentaDAO crearCuenta(String usuarioDTO) {
@@ -83,6 +84,67 @@ public class CuentaServicioImpl implements ICuentaServicio{
 		    }
 	}
 	
+	@Override
+    public CuentaDAO eliminarCuenta(long id) {
+        try {
+        	CuentaDAO cuenta = cuentaRepositorio.findById(id);
+
+            if (cuenta != null) {
+            	cuentaRepositorio.delete(cuenta);
+                logger.info("Cuenta " + cuenta.getNumeroCuenta() + "Eliminado");
+            } 
+            return cuenta;
+        } catch (Exception e) {
+            logger.error("Error en eliminarCuenta: " + e.getMessage(), e);
+            return null; 
+        }
+    }
 	
+	   // Método para buscar una Cuenta por su ID
+    @Override
+    public CuentaDAO buscarCuentaId(long id) {
+        try {
+            return cuentaRepositorio.findById(id);
+        } catch (Exception e) {
+            logger.error("Error en buscarCuentaId: " + e.getMessage(), e);
+            return null; 
+        }
+    }
+    
+    // Método para obtener una lista de todss lss cuentas en formato DAO
+    @Override
+    public List<CuentaDAO> listadoCuentaDAO() {
+        try {
+            return cuentaRepositorio.findAll();
+        } catch (Exception e) {
+            logger.error("Error en listadoCuentaDAO: " + e.getMessage(), e);
+            return null; 
+        }
+    }
+    
+ // Método para modificar los detalles de una cuenta
+    @Override
+    public void modificarCuenta(long id, CuentaDTO cuentaModificado) {
+        try {
+            // Verificar si la cuenta con el ID proporcionado existe en la base de datos
+            CuentaDAO cuenta = cuentaRepositorio.findById(id);
+            if (cuenta != null) {
+            	
+                // Actualizar los campos de la cuenta existente con los nuevos valores
+            	cuenta.setConNomina(cuentaModificado.getConNomina());
+            	cuenta.setFch_apertura(cuentaModificado.getFch_apertura());
+            	cuenta.setId_cuenta(cuentaModificado.getId_cuenta());
+            	cuenta.setNumeroCuenta(cuentaModificado.getNumeroCuenta());
+            	cuenta.setSaldo(cuentaModificado.getSaldo());
+            	cuenta.setUsuario(cuenta.getUsuario());
+            	
+                // Guardar los cambios en la base de datos
+            	cuentaRepositorio.save(cuenta);
+                logger.info("Cuenta " + cuenta.getNumeroCuenta() +" Fue modificado");
+            }
+        } catch (Exception e) {
+            logger.error("Error en modificarCuenta: " + e.getMessage(), e);
+        }
+    }
 
 }

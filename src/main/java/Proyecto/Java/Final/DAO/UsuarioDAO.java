@@ -3,6 +3,7 @@ package Proyecto.Java.Final.DAO;
 import java.util.Calendar;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -52,7 +53,7 @@ public class UsuarioDAO {
 	@Column(name = "tipoUsuario")
 	private String tipoUsuario;
 
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<CuentaDAO> cuentas;
 	
 	@Column(name = "cuenta_confirmada", nullable = false, columnDefinition = "boolean default false")

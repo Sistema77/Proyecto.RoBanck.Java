@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Actualizar Usuario</title>
+	<title>Actualizar Cuenta</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.2/css/bootstrap.min.css"
 		th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">
 	<link rel="stylesheet" href="../static/css/estilo.css" th:href="@{/css/estilo.css}">
@@ -29,15 +29,13 @@
 		</div>
 	</nav>
 	<div class="contenedor form-registro">
-		<p class="titulo">Actualizar Usuario</p>
-		 <form class="form" th:action="@{'/privada/modificar/usuario/' + ${usuario.id_usuario}}" method="post">
-		    <input type="text" id="name" name="name" class="input" required th:value="${usuario.name}">
-		    <input type="text" id="lastName" name="lastName" class="input" required th:value="${usuario.lastName}">
-		    <input type="text" id="dni" name="dni" class="input" required th:value="${usuario.dni}">
-		    <input type="text" id="tlf" name="tlf" class="input" required th:value="${usuario.tlf}">
-		    <input type="email" id="email" name="email" class="input" required th:value="${usuario.email}">
-		    <input type="file" id="foto" name="foto" required th:value="*{usuario.foto}" accept="image/*"  />
-    		<button type="submit" id="btnRegistro" class="form-btn">Actualizar</button> 
+		<p class="titulo">Actualizar Cuenta</p>
+		 <form class="form" th:action="@{'/privada/modificar/cuenta/' + ${cuenta.id_cuenta}}" method="post">
+		    <label for="conNomina">Con Nomina:</label>
+		    <input type="checkbox" id="conNomina" name="conNomina" th:checked="${cuenta.conNomina}">
+		    <input type="text" id="saldo" name="saldo" class="input" required th:value="${cuenta.saldo}">
+		
+		    <button type="submit" id="btnRegistro" class="form-btn">Actualizar</button> 
 		</form>
 	</div>
 </body>

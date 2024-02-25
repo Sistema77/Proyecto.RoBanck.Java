@@ -39,7 +39,7 @@ public class CuentaDAO {
     private Boolean conNomina;
 
     @ManyToOne
-    @JoinColumn(name="id_user")
+    @JoinColumn(name="id_user", referencedColumnName = "id_usuario")
     private UsuarioDAO usuario;
 
     @OneToMany(mappedBy="id_trasaciones")

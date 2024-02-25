@@ -64,9 +64,9 @@
 								</form>
 							</td>
 							<td>
-								<form class="form" th:action="@{'/privada/eliminarcuenta/' + ${cuenta.id_cuenta}}" method="post">
+								<form class="form" th:action="@{'/privada/eliminar/cuenta/' + ${cuenta.id_cuenta}}" method="post">
 									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
-									<button disabled type="submit" class="btn btn-danger"
+									<button type="submit" class="btn btn-danger"
 										th:text="eliminar"></button>
 								</form>
 							</td>

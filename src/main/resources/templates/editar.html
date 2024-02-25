@@ -32,7 +32,7 @@
 		<p class="titulo">Actualizar Usuario</p>
 		 <form class="form" th:action="@{'/privada/modificar/usuario/' + ${usuario.id_usuario}}" method="post">
 		    <input type="text" id="name" name="name" class="input" required th:value="${usuario.name}">
-		    <input type="text" id="last_name" name="last_name" class="input" required th:value="${usuario.lastName}">
+		    <input type="text" id="lastName" name="lastName" class="input" required th:value="${usuario.lastName}">
 		    <input type="text" id="dni" name="dni" class="input" required th:value="${usuario.dni}">
 		    <input type="text" id="tlf" name="tlf" class="input" required th:value="${usuario.tlf}">
 		    <input type="email" id="email" name="email" class="input" required th:value="${usuario.email}">

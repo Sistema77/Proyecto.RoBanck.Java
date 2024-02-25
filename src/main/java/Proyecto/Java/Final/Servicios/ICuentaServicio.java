@@ -10,4 +10,12 @@ public interface ICuentaServicio {
 	public CuentaDAO crearCuenta(String usuario);
 	
 	public List<CuentaDTO> verCuenta(String usuario);
+	
+	public CuentaDAO eliminarCuenta(long id);
+	
+	public CuentaDAO buscarCuentaId(long id);
+	
+	public List<CuentaDAO> listadoCuentaDAO();
+	
+	public void modificarCuenta(long id, CuentaDTO cuentaModificado);
 }
