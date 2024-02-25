@@ -32,7 +32,6 @@
 		<p class="titulo">Actualizar Cuenta</p>
 		 <form class="form" th:action="@{'/privada/modificar/cuenta/' + ${cuenta.id_cuenta}}" method="post">
 		    <label for="conNomina">Con Nomina:</label>
-		    <input type="checkbox" id="conNomina" name="conNomina" th:checked="${cuenta.conNomina}">
 		    <input type="text" id="saldo" name="saldo" class="input" required th:value="${cuenta.saldo}">
 		
 		    <button type="submit" id="btnRegistro" class="form-btn">Actualizar</button> 

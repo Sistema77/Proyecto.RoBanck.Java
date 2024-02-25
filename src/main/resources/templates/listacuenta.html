@@ -59,7 +59,7 @@
 							<td >
 								<form class="form" th:action="@{'/privada/modificarcuenta/' + ${cuenta.id_cuenta}}"  method="post">
 									<input type="hidden" name="id" th:value="${cuenta.id_cuenta}" />
-									<button disabled type="submit" class="btn btn-primary"
+									<button  type="submit" class="btn btn-primary"
 										th:text="modificar"></button>
 								</form>
 							</td>

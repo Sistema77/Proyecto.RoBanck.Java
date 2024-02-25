@@ -131,10 +131,7 @@ public class CuentaServicioImpl implements ICuentaServicio{
             if (cuenta != null) {
             	
                 // Actualizar los campos de la cuenta existente con los nuevos valores
-            	cuenta.setConNomina(cuentaModificado.getConNomina());
-            	cuenta.setFch_apertura(cuentaModificado.getFch_apertura());
-            	cuenta.setId_cuenta(cuentaModificado.getId_cuenta());
-            	cuenta.setNumeroCuenta(cuentaModificado.getNumeroCuenta());
+            	cuenta.setConNomina(false);
             	cuenta.setSaldo(cuentaModificado.getSaldo());
             	cuenta.setUsuario(cuenta.getUsuario());
             	

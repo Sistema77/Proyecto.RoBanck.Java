@@ -82,7 +82,7 @@ public class CuentaControlador {
 	 }
 	 
      // Método para mostrar el formulario de modificación de cuenta
-    @PostMapping("/privada/modificar/cuenta/{id}")
+    @PostMapping("/privada/modificarcuenta/{id}")
     public String mostrarFormularioModificar(@PathVariable long id, Model model,Authentication authentication) {
          try {
             // Busca la cuenta por ID y lo convierte en un DTO para mostrar en el formulario
@@ -106,11 +106,11 @@ public class CuentaControlador {
 	         try {
 	             // Actualiza los datos del cuenta
 	        	 cuentaServicio.modificarCuenta(id, cuentaModificado);
-	             return "redirect:/privada/administracion";
+	        	 return "redirect:/privada/ver-cuenta"; 
 	         } catch (Exception e) {
 	             // Manejo de errores
 	             logger.error("Error en modificarUsuario: " + e.getMessage(), e);
-	             return "redirect:/privada/administracion"; 
+	             return "redirect:/privada/ver-cuenta";
 	         }
 	    }
 	    
@@ -131,7 +131,7 @@ public class CuentaControlador {
 	        } catch (Exception e) {
 	            // Manejo de errores
 	            logger.error("Error en eliminarUsuario: " + e.getMessage(), e);
-	            return "redirect:privada/ver-cuenta"; 
+	            return "redirect:/privada/ver-cuenta"; 
 	        }
 	        
 	    }
